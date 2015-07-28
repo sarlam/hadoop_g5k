@@ -130,7 +130,6 @@ class SparkJob(object):
 
 
 class PythonSparkJob(SparkJob):
-
     def get_command(self, exec_dir="."):
 
         # Get parameters
@@ -150,7 +149,6 @@ class PythonSparkJob(SparkJob):
 
 
 class JavaOrScalaSparkJob(SparkJob):
-
     def __init__(self, job_path, exec_params=None, app_params=None,
                  lib_paths=None, main_class=None):
 
@@ -298,8 +296,7 @@ class SparkCluster(object):
             mode_text = "in standalone mode"
         else:
             mode_text = "on top of YARN"
-        logger.info("Spark cluster created %s in hosts %s."
-                    " It is linked to a Hadoop cluster." if self.hc else "",
+        logger.info("Spark cluster created %s in hosts %s.",
                     mode_text,
                     ' '.join([style.host(h.address.split('.')[0])
                               for h in self.hosts]))
@@ -432,7 +429,7 @@ class SparkCluster(object):
             if self.mode == STANDALONE_MODE:
                 defaults_file.write("spark.master\t"
                                     "spark://" + self.master.address + ":" +
-                                                 str(self.port) + "\n")
+                                    str(self.port) + "\n")
             elif self.mode == YARN_MODE:
                 defaults_file.write("spark.master\tyarn-client\n")
 
@@ -683,7 +680,7 @@ class SparkCluster(object):
             restart = True
 
         action = Remote("rm -rf " + self.logs_dir + "/* " +
-                                    self.work_dir + "/*",
+                        self.work_dir + "/*",
                         self.hosts)
         action.run()
 
